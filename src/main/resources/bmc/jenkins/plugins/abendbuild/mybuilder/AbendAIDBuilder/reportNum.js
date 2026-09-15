@@ -1,14 +1,24 @@
-   
+document.addEventListener("DOMContentLoaded", function() {
+    
+    var dropdown = document.getElementById('apiDropdown');
+    
+    
+    var targetContainer = document.querySelector('.cond-reportNum');
 
-        function abendAPI(selectedValue) {
-            var element = document.getElementById('reportNum')
-            (selectedValue === 'report') ? element.style.display = 'block' : element.style.display = 'none'
+    if (!dropdown || !targetContainer) return;
+
+    function toggleFields() {
+        
+        if (dropdown.value === 'report') {
+            targetContainer.style.display = ''; 
+        } else {
+            targetContainer.style.display = 'none'; 
         }
+    }
 
-        document.addEventListener("DOMContentLoaded", function() {
-            var dropdown = document.getElementById('apiDropdown')
-            if (dropdown) {
-                abendAPI(dropdown.value)
-            }
-        })
+  
+    dropdown.addEventListener('change', toggleFields);
 
+   
+    toggleFields();
+});
