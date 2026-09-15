@@ -1,4 +1,4 @@
-package bmc.jenkins.plugins.abendaid;
+package bmc.jenkins.plugins.abendbuild.mybuilder;
 import hudson.EnvVars;
 import hudson.Extension;
 import hudson.FilePath;
@@ -110,7 +110,6 @@ public class AbendAIDBuilder extends Builder implements SimpleBuildStep {
     }
 
     @Extension
-    @Symbol("abendAid") 
     public static final class DescriptorImpl extends BuildStepDescriptor<Builder> {
         public ListBoxModel doFillAbendAPIItems() {
             ListBoxModel items = new ListBoxModel();
