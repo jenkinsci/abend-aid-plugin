@@ -82,7 +82,6 @@ public class AbendAIDBuilder extends Builder implements SimpleBuildStep {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             listener.getLogger().println("API: " + abendAPI);
             listener.getLogger().println("report: " + reportNum);
-            System.out.println("Response" + response.body());
             listener.getLogger().println("Response" + response.body());
             String responseBody = response.body();
             try {
