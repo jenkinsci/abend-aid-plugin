@@ -1,6 +1,6 @@
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:stapler" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
-    
+ <st:adjunct includes="io.jenkins.plugins.abendbuild.mybuilder.AbendAIDBuilder.reportNum"/>   
     <f:entry title="${%Configure}" field="name">
         <f:textbox />
     </f:entry>
@@ -8,14 +8,14 @@
     <f:entry title="${%Token}" field="token">
         <f:password />
      </f:entry>
+    <f:entry name="abendAPI" title="Abend-AID API" field="abendAPI">
+        <f:select id="apiDropdown"/>
+    </f:entry>
 
-    <st:adjunct includes="bmc.jenkins.plugins.abendaid.abendAPI"/>
+        <f:entry title="${%Report}" field="reportNum" 
+             class="cond-reportNum" 
+             style="display:none;">
+        <f:textbox />
+    </f:entry>
 
-    <div id="reportNum" style="display: none;">
-        <f:entry title="${%Report}" field="reportNum">
-            <f:textbox/>
-        </f:entry>
-    </div>
-
-<st:adjunct includes="bmc.jenkins.plugins.abendaid.reportNum"/>
 </j:jelly>
