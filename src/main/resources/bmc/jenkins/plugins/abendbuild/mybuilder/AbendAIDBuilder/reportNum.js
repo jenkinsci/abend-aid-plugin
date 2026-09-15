@@ -3,22 +3,22 @@ document.addEventListener("DOMContentLoaded", function() {
     var dropdown = document.getElementById('apiDropdown');
     
     
-    var targetContainer = document.querySelector('.cond-reportNum');
+    var reportNumtar = document.querySelector('.cond-reportNum');
 
-    if (!dropdown || !targetContainer) return;
+    if (!dropdown || !reportNumtar) return;
 
-    function toggleFields() {
+    function togglereportNum() {
         
         if (dropdown.value === 'report') {
-            targetContainer.style.display = ''; 
+            reportNumtar.style.display = ''; 
         } else {
-            targetContainer.style.display = 'none'; 
+            reportNumtar.style.display = 'none'; 
         }
     }
 
   
-    dropdown.addEventListener('change', toggleFields);
+    dropdown.addEventListener('change', togglereportNum);
 
    
-    toggleFields();
+    togglereportNum();
 });
