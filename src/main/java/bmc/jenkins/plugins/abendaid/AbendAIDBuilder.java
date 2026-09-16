@@ -53,7 +53,6 @@ public class AbendAIDBuilder extends Builder implements SimpleBuildStep {
     }
 
 
-    @DataBoundSetter
     @Override
     public void perform(Run<?, ?> run, FilePath workspace, EnvVars env, Launcher launcher, TaskListener listener)
             throws InterruptedException, IOException {
@@ -109,6 +108,7 @@ public class AbendAIDBuilder extends Builder implements SimpleBuildStep {
     }
 
     @Extension
+    @symbol("abendAAid")
     public static final class DescriptorImpl extends BuildStepDescriptor<Builder> {
         public ListBoxModel doFillAbendAPIItems() {
             ListBoxModel items = new ListBoxModel();
