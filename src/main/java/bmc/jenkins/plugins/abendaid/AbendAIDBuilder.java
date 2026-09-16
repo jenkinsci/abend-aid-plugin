@@ -108,7 +108,7 @@ public class AbendAIDBuilder extends Builder implements SimpleBuildStep {
     }
 
     @Extension
-    @symbol("abendAAid")
+    @symbol("abendAid")
     public static final class DescriptorImpl extends BuildStepDescriptor<Builder> {
         public ListBoxModel doFillAbendAPIItems() {
             ListBoxModel items = new ListBoxModel();
