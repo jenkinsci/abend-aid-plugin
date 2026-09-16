@@ -1,24 +1,26 @@
-document.addEventListener("DOMContentLoaded", function() {
+(function() {
     
-    var dropdown = document.getElementById('apiDropdown');
-    
-    
-    var reportNumtar = document.querySelector('.cond-reportNum');
-
-    if (!dropdown || !reportNumtar) return;
-
-    function togglereportNum() {
+    Behaviour.specify("select.my-api-dropdown", "my-api-dropdown-behavior", 0, function(dropdown) {
         
-        if (dropdown.value === 'report') {
-            reportNumtar.style.display = ''; 
-        } else {
-            reportNumtar.style.display = 'none'; 
+
+        var rowAbend = dropdown.closest('.jenkins-form-item') ;
+        var parentBlock = rowAbend ? rowAbend.parentNode : document;
+        var targetAbend = parentBlock.querySelector(".my-cond-reportnum");
+
+
+        function togglereportNum() {
+            if (dropdown.value === "report") {
+
+                targetAbend.style.display = ""; 
+            } else {
+
+                targetAbend.style.display = "none";
+            }
         }
-    }
 
-  
-    dropdown.addEventListener('change', togglereportNum);
+        dropdown.addEventListener("change", togglereportNum);
 
-   
-    togglereportNum();
-});
+      
+        togglereportNum();
+    });
+})();
