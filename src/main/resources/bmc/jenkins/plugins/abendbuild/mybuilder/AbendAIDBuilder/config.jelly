@@ -1,6 +1,6 @@
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:stapler" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
-    <st:adjunct includes="io.jenkins.plugins.abendbuild.mybuilder.AbendAIDBuilder.reportNum"/>   
+    <st:adjunct includes="bmc.jenkins.plugins.abendbuild.mybuilder.AbendAIDBuilder.reportNum"/>   
     <f:entry title="${%Configure}" field="name">
         <f:textbox clazz="required" checkMessage="set a configuration"/>
     </f:entry>
