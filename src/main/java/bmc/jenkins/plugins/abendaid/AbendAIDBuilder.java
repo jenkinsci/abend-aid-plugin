@@ -1,4 +1,4 @@
-package io.jenkins.plugins.abendbuild.mybuilder;
+package bmc.jenkins.plugins.abendbuild.mybuilder;
 
 import hudson.EnvVars;
 import hudson.Extension;
