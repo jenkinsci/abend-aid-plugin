@@ -37,7 +37,7 @@ public class AbendAIDBuilder extends Builder implements SimpleBuildStep {
     public AbendAIDBuilder(String name, Secret token, String abendAPI, int reportNum)
             throws hudson.model.Descriptor.FormException {
         // The checks below will make sure the user updates the correct fields.
-        // If not then it will display an error screen an prevent them from saving/applying
+        // If not then it will display an error screen and prevent them from saving/applying
         if (abendAPI == null || abendAPI.trim().isEmpty()) {
             throw new hudson.model.Descriptor.FormException(
                     "You must choose a valid API request before saving.", "abendAPI");
