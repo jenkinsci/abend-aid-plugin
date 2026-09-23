@@ -6,6 +6,7 @@ import hudson.FilePath;
 import hudson.Launcher;
 import hudson.ProxyConfiguration;
 import hudson.model.AbstractProject;
+import hudson.model.Item;
 import hudson.model.Run;
 import hudson.model.TaskListener;
 import hudson.tasks.BuildStepDescriptor;
@@ -13,15 +14,14 @@ import hudson.tasks.Builder;
 import hudson.util.FormValidation;
 import hudson.util.ListBoxModel;
 import hudson.util.Secret;
-import jakarta.servlet.ServletException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import jenkins.model.Jenkins;
 import jenkins.tasks.SimpleBuildStep;
 import org.jenkinsci.Symbol;
+import org.kohsuke.stapler.AncestorInPath;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.verb.POST;
@@ -34,7 +34,23 @@ public class AbendAIDBuilder extends Builder implements SimpleBuildStep {
     private final int reportNum; // report number for diagnostic summary
 
     @DataBoundConstructor
-    public AbendAIDBuilder(String name, Secret token, String abendAPI, int reportNum) {
+    public AbendAIDBuilder(String name, Secret token, String abendAPI, int reportNum)
+            throws hudson.model.Descriptor.FormException {
+        if (abendAPI == null || abendAPI.trim().isEmpty()) {
+            throw new hudson.model.Descriptor.FormException(
+                    "You must choose a valid API request before saving.", "abendAPI");
+        }
+        if (name == null || name.trim().isEmpty()) {
+            throw new hudson.model.Descriptor.FormException("You must set a configuration.", "name");
+        }
+        if (token == null || token.getPlainText().isEmpty()) {
+            throw new hudson.model.Descriptor.FormException("You must set a token.", "token");
+        }
+        if (abendAPI.equals("report")) {
+            if (reportNum == 0) {
+                throw new hudson.model.Descriptor.FormException("You must set a report number.", "reportNum");
+            }
+        }
         this.name = name;
         this.token = token;
         this.abendAPI = abendAPI;
@@ -128,8 +144,12 @@ public class AbendAIDBuilder extends Builder implements SimpleBuildStep {
         }
 
         @POST
-        public FormValidation doCheckAbendAPI(@QueryParameter String value) throws IOException, ServletException {
-            if (!Jenkins.get().hasPermission(Jenkins.ADMINISTER)) {
+        public FormValidation doCheckAbendAPI(@QueryParameter String value, @AncestorInPath Item item) {
+
+            if (item == null) { // no context
+                return FormValidation.ok();
+            }
+            if (!item.hasPermission(Item.CONFIGURE)) {
                 return FormValidation.ok();
             }
             if (value == null || value.trim().isEmpty()) {
