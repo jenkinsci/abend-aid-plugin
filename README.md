@@ -1,9 +1,8 @@
 # Abend-AID_API
 Abend-AID Jenkins plugin to retrieve API request. 
 Abend-AID Jenkins Plugin
-Abend-AID Jenkins Plugins is used to request Abend-AID APIs(link to doc) that are connected through the CES API configurations.
+Abend-AID Jenkins Plugins is used to request Abend-AID APIs that are connected through the CES API configurations.
 
-The Plugin can be downloaded and installed(still figuring this part out).
 
 The Plugin will need:
  A Configuration that will connect to a CES instant that will have a host connection to an Abend-AID Viewer(https://docs.bmc.com/xwiki/bin/view/Mainframe/DevX/BMC-AMI-Common-Enterprise-Services/baces2601/Administering/Defining-host-connections/).
