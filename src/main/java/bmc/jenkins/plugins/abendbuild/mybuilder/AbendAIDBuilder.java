@@ -21,13 +21,13 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import jenkins.tasks.SimpleBuildStep;
 import org.jenkinsci.Symbol;
+import org.json.CDL;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.kohsuke.stapler.AncestorInPath;
 import org.kohsuke.stapler.DataBoundConstructor;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.verb.POST;
-import org.json.CDL;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 public class AbendAIDBuilder extends Builder implements SimpleBuildStep {
 
@@ -35,7 +35,7 @@ public class AbendAIDBuilder extends Builder implements SimpleBuildStep {
     private final Secret token; // token used for permission checking
     private final String abendAPI; // the selected API that the user wants
     private final int reportNum; // report number for diagnostic summary
-    private final boolean csvbool; //csv boolien for csv file
+    private final boolean csvbool; // csv boolien for csv file
 
     @DataBoundConstructor
     public AbendAIDBuilder(String name, Secret token, String abendAPI, int reportNum, boolean csvbool)
@@ -79,6 +79,7 @@ public class AbendAIDBuilder extends Builder implements SimpleBuildStep {
     public int getReport() {
         return reportNum;
     }
+
     public boolean getcsvbool() {
         return csvbool;
     }
@@ -138,31 +139,29 @@ public class AbendAIDBuilder extends Builder implements SimpleBuildStep {
         }
 
         listener.getLogger().println("connection, " + name);
-    
-        if (!csvbool){
+
+        if (!csvbool) {
         } else {
             try {
                 int buildnumber = run.getNumber();
                 FilePath jsonFile = workspace.child("Abend_AID_API/API" + buildnumber + ".json");
                 FilePath csvFile = workspace.child("Abend_AID_API/API" + buildnumber + ".csv");
-                
+
                 String jsonString = jsonFile.readToString();
-                
+
                 JSONObject jsonObject = new JSONObject(jsonString);
                 JSONArray records = jsonObject.getJSONArray("dir");
                 String csvString = CDL.toString(records);
-                
-              
+
                 FilePath parentDir = csvFile.getParent();
                 if (parentDir != null) {
                     parentDir.mkdirs();
                 }
-                
-             
+
                 csvFile.write(csvString, "UTF-8");
-                
+
                 listener.getLogger().println("CSV successfully generated at: " + csvFile.getRemote());
-                
+
             } catch (IOException e) {
                 listener.error("File I/O error occurred during conversion: " + e.getMessage());
                 e.printStackTrace();
@@ -173,9 +172,10 @@ public class AbendAIDBuilder extends Builder implements SimpleBuildStep {
                 listener.error("Error parsing JSON: " + e.getMessage());
                 e.printStackTrace();
             }
-            
+
             listener.getLogger().println("connection, " + name);
-        }}
+        }
+    }
     // This will create the seletor for the drop down for the specific request
     @Extension
     @Symbol("abendAid")
