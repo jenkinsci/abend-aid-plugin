@@ -18,5 +18,10 @@
             <f:textbox clazz="required" checkMessage="set a report number"/>
         </f:entry>
     </div>
+    <div class="my-cond-csv">
+        <f:entry title="${%csv file}" field="csvbool">
+            <f:checkbox default="false" />
+        </f:entry>
+    </div>
      
 </j:jelly>
