@@ -123,7 +123,7 @@ public class AbendAIDBuilder extends Builder implements SimpleBuildStep {
             try {
                 // This will build the file to hold the API request for future use
                 int buildnumber = run.getNumber();
-                FilePath targetFile = workspace.child("Abend_AID_API/API" + buildnumber + ".txt");
+                FilePath targetFile = workspace.child("Abend_AID_API/API" + buildnumber + ".json");
 
                 targetFile.write(responseBody, "UTF-8");
 
